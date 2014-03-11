@@ -3,7 +3,10 @@ package org.infobip.campus8;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,12 +15,24 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 public class MainActivity extends Activity {
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		SharedPreferences regPrefs = this.getSharedPreferences("registerPreferences", 0);
+		String username = regPrefs.getString("user",null);
+		String email = regPrefs.getString("email",null);
+		Log.e("MAIN Act","PRVI");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_main);
-
+	    if ((username == null) && (email == null) )
+		{
+			Intent intent = new Intent(MainActivity.this,Registration.class);
+			  startActivity(intent);
+		}
+		
+		
+		
 
 	}
 
