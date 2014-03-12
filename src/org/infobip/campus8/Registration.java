@@ -26,33 +26,43 @@ public class Registration extends Activity {
          button.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
             	//name of prefs
-         		String registerPreferences = "registerPreferences";
-         		String username;
-         		String email;
-         		SharedPreferences sharedpreferences=getSharedPreferences(registerPreferences, 0);
-            	 // from input fields to string and then to sharedPrefs
+         		String preferencesFileName = "registerPreferences";
+         		String username="";
+         		String email="";
+         		
+         		SharedPreferences sharedpreferences=getSharedPreferences(preferencesFileName, 0);
+            	
+         		// from input fields to string and then to sharedPrefs
             	EditText inputUsername = (EditText) findViewById(R.id.editText1);
              	EditText inputEmail = (EditText) findViewById(R.id.editText2);
+             	
              	username=inputUsername.getText().toString();
              	email=inputEmail.getText().toString();
-             	Log.e("REGISTER", "1");
-             	Log.e("REGISTER", "Username vrijednost: " +username);
-             	Log.e("REGISTER", "email: " +email);
+             	Log.e("REGISTRATION","email value "+email);
+             	//TODO testirati ovu IF petlju
+             	if(username.equals("") || email.equals("")){
+             		Toast.makeText(getBaseContext(), "Please fill all required data", Toast.LENGTH_SHORT).show();	
+             	}
+             	
+             	else{
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("user", username);
                 editor.putString("email", email);
                 editor.commit();
-                Log.e("REGISTER", "GOTOV");
-                Log.e("REGISTER", ""+inputEmail);
                 Toast.makeText(getBaseContext(), "Registration sucessfully completed", Toast.LENGTH_SHORT).show();
                 finish();
+             	}
            
              }
 
          });
+                 
+}
+	//TODO KADA SE PRITISNE BACK BUTTON Treba se ugasiti
+	 @Override
+     public void onBackPressed() {
+		
+     }	
 
-	
-	
-	
-}}
+}
 
