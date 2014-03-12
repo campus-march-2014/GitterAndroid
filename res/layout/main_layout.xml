@@ -12,11 +12,11 @@
         <ListView
             android:id="@+id/listViewOfChannels"
             android:layout_width="match_parent"
-            android:layout_height="457dp"
+            android:layout_height="459dp"
             android:layout_alignLeft="@+id/textView1"
             android:layout_below="@+id/textView1"
-            android:layout_marginTop="21dp"
-            android:layout_weight="7.75" >
+            android:layout_marginTop="21dp" >
+
         </ListView>
     </LinearLayout>
 

@@ -8,17 +8,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.infobip.campus8.MainActivity$PlaceholderFragment" >
 
-      <ListView
-        android:id="@+id/listViewOfChannels"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="21dp" >
-
-    </ListView>
-
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView1"
@@ -26,5 +17,21 @@
         android:layout_toRightOf="@+id/textView1"
         android:orientation="vertical" >
     </LinearLayout>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Save" />
+
+    <ListView
+        android:id="@+id/listViewOfChannels"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/saveButton" >
+
+    </ListView>
 
 </RelativeLayout>

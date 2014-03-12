@@ -10,6 +10,7 @@ import com.infobip.push.RegistrationData;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,14 +68,17 @@ public class Registration extends Activity {
                 registrationData.setChannels(channels);
 				manager.register(registrationData);
                 Toast.makeText(getBaseContext(), "Registration sucessfully completed", Toast.LENGTH_SHORT).show();
+                Intent intentSubs = new Intent(Registration.this,
+               	     PostRegistrationChannelSubscription.class);
+               	   startActivity(intentSubs);
+               	  
                 finish();
              	}
            
              }
 
          });
-              
-}
+    }
 	//TODO KADA SE PRITISNE BACK BUTTON Treba se ugasiti
 	 @Override
      public void onBackPressed() {
