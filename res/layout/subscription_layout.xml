@@ -8,23 +8,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.infobip.campus8.MainActivity$PlaceholderFragment" >
 
-      <ListView
+      <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Save" />
+
+    <ListView
         android:id="@+id/listViewOfChannels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textViewTitle"
-        android:layout_below="@+id/textViewTitle"
-        android:layout_marginTop="21dp" >
+        android:layout_above="@+id/saveButton" >
 
     </ListView>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textViewTitle"
-        android:layout_marginLeft="42dp"
-        android:layout_toRightOf="@+id/textViewTitle"
-        android:orientation="vertical" >
-    </LinearLayout>
 
 </RelativeLayout>
