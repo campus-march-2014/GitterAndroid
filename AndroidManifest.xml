@@ -12,6 +12,7 @@
     <permission
         android:name="org.infobip.campus8.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+    <uses-permission android:name="org.infobip.campus8.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -70,7 +71,7 @@
             android:value="@+integer/google_play_services_version" />
 
         <receiver
-            android:name=".MyPushReceiver"
+            android:name=".PushReceiver"
             android:permission="org.infobip.campus8.permission.C2D_MESSAGE" >
             <intent-filter>
                 <action android:name="com.infobip.push.intent.REGISTERED_FOR_NOTIFICATIONS" />

@@ -1,6 +1,12 @@
 package org.infobip.campus8;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.datatype.Duration;
+
+import com.infobip.push.PushNotificationManager;
+import com.infobip.push.RegistrationData;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Registration extends Activity {
+	
+	private PushNotificationManager manager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +29,7 @@ public class Registration extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.registration_screen);
-	
+		 manager = new PushNotificationManager(this);
 		 final Button button = (Button) findViewById(R.id.RegisterButton);
          button.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
@@ -49,6 +57,15 @@ public class Registration extends Activity {
                 editor.putString("user", username);
                 editor.putString("email", email);
                 editor.commit();
+               
+       		 	manager.setDebugModeEnabled(true);
+       		 	manager.initialize(AppConfig.PROJECT_NUMBER, AppConfig.APPLICATION_ID, AppConfig.APPLICATION_SECRET);
+                RegistrationData registrationData = new RegistrationData();
+                registrationData.setUserId(username);
+                List<String> channels = new ArrayList<String>();
+                channels.add("test");
+                registrationData.setChannels(channels);
+				manager.register(registrationData);
                 Toast.makeText(getBaseContext(), "Registration sucessfully completed", Toast.LENGTH_SHORT).show();
                 finish();
              	}

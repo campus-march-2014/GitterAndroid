@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -18,6 +17,8 @@ import java.util.concurrent.ExecutionException;
 
 import org.json.JSONException;
 
+import com.infobip.push.PushNotificationManager;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -25,7 +26,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private ListView listViewOfChannels;
-	private String CHANNEL_LIST_PREFS_FILENAME = "ChannelList";
+	private PushNotificationManager manager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,12 @@ public class MainActivity extends Activity {
 		String email = regPrefs.getString("email",null);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_main);
+		
+		//ifobip push initialization
+		 manager = new PushNotificationManager(this);
+		 manager.setDebugModeEnabled(true);
+		 manager.initialize(AppConfig.PROJECT_NUMBER, AppConfig.APPLICATION_ID, AppConfig.APPLICATION_SECRET);
+		 //
 
 	    if ((username == null) && (email == null) )
 		{
@@ -41,10 +48,11 @@ public class MainActivity extends Activity {
 			  startActivity(intent);
 		}	  
 			  List<String> channelList=getList();
-			  storeChannelListInSharedPrefs(channelList);
 			  listViewOfChannels = (ListView) findViewById(R.id.listViewOfChannels);
-			  ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,channelList);
-          	  listViewOfChannels.setAdapter(arrayAdapter); 
+			  ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
+					  channelList );
+
+		         listViewOfChannels.setAdapter(arrayAdapter); 
 		}
 
 	private List<String> getList() {
@@ -67,21 +75,6 @@ public class MainActivity extends Activity {
 			return new ArrayList<String>();
 		}
 	}
-	
-	
-	private void storeChannelListInSharedPrefs(List<String> channelList)
-	{	
-		SharedPreferences sharedpreferences=getSharedPreferences(CHANNEL_LIST_PREFS_FILENAME, 0);
-		SharedPreferences.Editor editor = sharedpreferences.edit();
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < channelList.size(); i++) {
-		    sb.append(channelList.get(i)).append(",");
-		}
-		editor.putString("Channels",sb.toString());
-		  editor.commit();
-		Log.e("MainAct","Storing in shared prefs:" +sb);
-	}
-
 
 	private boolean isConnected() {
 		ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -93,21 +86,20 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		menu.add(0, 1, 0, "Settings");
-		menu.add(0, 2, 0,"About");
-		return super.onCreateOptionsMenu(menu);
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
-		switch (item.getItemId()) {
-	    case 1:
-	    	{Log.e("MainMenu","Selected item");
-	    	Intent intentSubs = new Intent(MainActivity.this,PostRegistrationChannelSubscription.class);
-			 startActivity(intentSubs);}
-	    	
-	}
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
