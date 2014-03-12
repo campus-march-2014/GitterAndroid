@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	private ListView listViewOfChannels;
 	private PushNotificationManager manager;
+	private String CHANNEL_LIST_PREFS_FILENAME = "ChannelList";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends Activity {
 			  startActivity(intent);
 		}	  
 			  List<String> channelList=getList();
+			  storeChannelListInSharedPrefs(channelList);
 			  listViewOfChannels = (ListView) findViewById(R.id.listViewOfChannels);
 			  ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
 					  channelList );
@@ -82,24 +85,38 @@ public class MainActivity extends Activity {
 		return (networkInfo != null && networkInfo.isConnected());
 	}
 
+	private void storeChannelListInSharedPrefs(List<String> channelList) {
+		  SharedPreferences sharedpreferences = getSharedPreferences(
+		    CHANNEL_LIST_PREFS_FILENAME, 0);
+		  SharedPreferences.Editor editor = sharedpreferences.edit();
+		  StringBuilder sb = new StringBuilder();
+		  for (int i = 0; i < channelList.size(); i++) {
+		   sb.append(channelList.get(i)).append(",");
+		  }
+		  editor.putString("Channels", sb.toString());
+		  editor.commit();
+		  Log.e("MainAct", "Storing in shared prefs:" + sb);
+		 }
 	
 	@Override
 	 public boolean onCreateOptionsMenu(Menu menu) {
 
-	  menu.add(0,1,0, "Settings");
-	  menu.add(0,2,0, "About");
-	  return true;
+	  menu.add(0, 1, 0, "Settings");
+	  menu.add(0, 2, 0, "About");
+	  return super.onCreateOptionsMenu(menu);
 	 }
 
 	 @Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
-	  // Handle action bar item clicks here. The action bar will
-	  // automatically handle clicks on the Home/Up button, so long
-	  // as you specify a parent activity in AndroidManifest.xml.
-	  int id = item.getItemId();
-	  switch(id){
-	  case 1: {Intent intent = new Intent(MainActivity.this,PostRegistrationChannelSubscription.class);
-	    startActivity(intent);}
+
+	  switch (item.getItemId()) {
+	  case 1: {
+	   Log.e("MainMenu", "Selected item");
+	   Intent intentSubs = new Intent(MainActivity.this,
+	     PostRegistrationChannelSubscription.class);
+	   startActivity(intentSubs);
+	  }
+
 	  }
 	  return super.onOptionsItemSelected(item);
 	 }
