@@ -9,7 +9,7 @@
     tools:context="org.infobip.campus8.MainActivity$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Channel List" />
@@ -18,8 +18,8 @@
         android:id="@+id/listViewOfChannels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/textViewTitle"
+        android:layout_below="@+id/textViewTitle"
         android:layout_marginTop="21dp" >
 
     </ListView>
@@ -27,9 +27,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView1"
+        android:layout_alignTop="@+id/textViewTitle"
         android:layout_marginLeft="42dp"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_toRightOf="@+id/textViewTitle"
         android:orientation="vertical" >
     </LinearLayout>
 

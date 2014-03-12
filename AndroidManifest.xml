@@ -51,6 +51,12 @@
             <intent-filter>
             </intent-filter>
         </activity>
+        <activity
+            android:name="org.infobip.campus8.ViewMessageAcitivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+            </intent-filter>
+        </activity>
 
         <service android:name="com.infobip.push.lib.InfobipPushService" />
 
