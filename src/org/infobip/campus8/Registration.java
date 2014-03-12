@@ -73,7 +73,7 @@ public class Registration extends Activity {
              }
 
          });
-                 
+              
 }
 	//TODO KADA SE PRITISNE BACK BUTTON Treba se ugasiti
 	 @Override
