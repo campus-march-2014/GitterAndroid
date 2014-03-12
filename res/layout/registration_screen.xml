@@ -9,7 +9,7 @@
     tools:context="org.infobip.pushcampus.MainActivity$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,8 +22,8 @@
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/textViewTitle"
+        android:layout_below="@+id/textViewTitle"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName" >
@@ -47,11 +47,11 @@
         android:layout_below="@+id/editText2"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="47dp"
-        android:layout_toRightOf="@+id/textView2"
+        android:layout_toRightOf="@+id/textViewMessage"
         android:text="Register" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/editText2"
