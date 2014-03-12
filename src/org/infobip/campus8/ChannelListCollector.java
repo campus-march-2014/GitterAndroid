@@ -26,21 +26,16 @@ public class ChannelListCollector {
 		ChannelListTask task = new ChannelListTask();
 		ChannelListJsonParser parser = new ChannelListJsonParser();
 		channels = task.execute(new Void[0]).get();
-		List<String> channelList = parser.parse(channels);
-		return channelList;
+		return parser.parse(channels);
 	}
 	
 	private class ChannelListTask extends AsyncTask<Void, Void, String>{
-
-		private final String HEADER_VALUE = "Basic cHVzaGRlbW86cHVzaGRlbW8=";
-		private final String HEADER_NAME = "Authorization";
-		private final String CHANNEL_LIST_URL = "https://pushapi.infobip.com/1/application/9cabf301d3db/channels";
 		
 		@Override
 		protected String doInBackground(Void...voids) {
 			HttpClient client = new DefaultHttpClient();
-			HttpGet get = new HttpGet(CHANNEL_LIST_URL);
-			get.setHeader(HEADER_NAME, HEADER_VALUE);
+			HttpGet get = new HttpGet(AppConfig.CHANNEL_LIST_URL);
+			get.setHeader(AppConfig.HEADER_NAME, AppConfig.HEADER_VALUE);
 			HttpResponse responseGet = null;
 			try {
 				responseGet = client.execute(get);
