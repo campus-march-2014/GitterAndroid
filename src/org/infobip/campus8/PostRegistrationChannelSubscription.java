@@ -9,6 +9,10 @@ import javax.xml.datatype.Duration;
 
 import org.json.JSONException;
 
+import com.infobip.push.ChannelRegistrationListener;
+import com.infobip.push.PushNotificationManager;
+import com.infobip.push.RegistrationData;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +31,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class PostRegistrationChannelSubscription extends Activity {
+	private PushNotificationManager manager;
 	private String PREFERENCES_FILENAME = "SelectedChannels";
 	private String CHANNEL_LIST_PREFS_FILENAME = "AllChannelsFromServer";
 	private ArrayList<String> selectedItems = new ArrayList<String>();
@@ -35,17 +40,24 @@ public class PostRegistrationChannelSubscription extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.subscription_layout);
+	manager = new PushNotificationManager(this);
 	List<String> channelList=getList();
 	  storeChannelListInSharedPrefs(channelList);
-	
-	SharedPreferences sharedpreferences=this.getSharedPreferences("ChannelListSelected", 0);
+	  Log.e("load selections", "line 45");
+	SharedPreferences sharedpreferences=this.getSharedPreferences(CHANNEL_LIST_PREFS_FILENAME, 0);
+	Log.e("load selections", "line 47");
 	String chList=sharedpreferences.getString("Channels",null);
+	Log.e("load selections", "chlist: "+chList);
+
 	String[] ChannelList = chList.split(",");
+	Log.e("load selections", "line 52");
 	listViewOfChannels = (ListView) findViewById(R.id.listViewOfChannels);
 	ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice,ChannelList );
+	Log.e("load selections", "line 54");
 	listViewOfChannels.setAdapter(arrayAdapter); 
 	listViewOfChannels.setItemsCanFocus(false);
 	listViewOfChannels.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+	Log.e("load selections", "line 59");
 	LoadSelections();
 	
 	listViewOfChannels.setOnItemClickListener(new OnItemClickListener() {
@@ -61,7 +73,23 @@ public class PostRegistrationChannelSubscription extends Activity {
 		public void onClick(View v) {
 			saveSelectedChannelesInPrefs();
 			Toast.makeText(getBaseContext(), "Saved Channel List", Toast.LENGTH_SHORT).show();
-			
+			String channels = getSavedItems();
+			String[] channelArray = channels.split(",");
+			List<String> channelsToBePushed = Arrays.asList(channelArray);
+			manager.setDebugModeEnabled(true);
+   		 	manager.initialize(AppConfig.PROJECT_NUMBER, AppConfig.APPLICATION_ID, AppConfig.APPLICATION_SECRET);
+   		 	manager.registerToChannels(channelsToBePushed, true, new ChannelRegistrationListener() {
+
+    		    @Override
+    		    public void onChannelsRegistered() {
+    		    	Toast.makeText(getBaseContext(), "Channels successfully registered", Toast.LENGTH_SHORT).show();
+    		    }
+
+    		    @Override
+    		    public void onChannelRegistrationFailed(int reason) {
+    		    	Toast.makeText(getBaseContext(), "Channel registration failed", Toast.LENGTH_SHORT).show();
+    		    }
+    		});
 		}});
 			
 	}	
@@ -135,6 +163,7 @@ public class PostRegistrationChannelSubscription extends Activity {
 			    }
 	
 	private void LoadSelections() {
+		Log.e("load selections", "jel doslo ovde?");
 		SharedPreferences settingsActivity=this.getSharedPreferences(PREFERENCES_FILENAME, 0);
 	if (settingsActivity.contains("SubscribedChannels")) {  Log.e("POST","LOAD SELECTIONS3");String savedItems = settingsActivity.getString("SubscribedChannels", "");
 		            this.selectedItems.addAll(Arrays.asList(savedItems.split(",")));

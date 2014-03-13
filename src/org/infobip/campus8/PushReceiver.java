@@ -24,6 +24,7 @@ public class PushReceiver extends AbstractPushReceiver {
 	public void onNotificationReceived(PushNotification notification, Context context) {
 		Toast.makeText(context, "Received notification: " + notification.toString(), Toast.LENGTH_SHORT).show();
 		  notification.vibrate();
+		  notification.makeSound();
 		
 	}
 	
