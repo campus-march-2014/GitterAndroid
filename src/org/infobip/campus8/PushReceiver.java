@@ -23,6 +23,8 @@ public class PushReceiver extends AbstractPushReceiver {
 	@Override
 	public void onNotificationReceived(PushNotification notification, Context context) {
 		Toast.makeText(context, "Received notification: " + notification.toString(), Toast.LENGTH_SHORT).show();
+		Message message = new Message(notification.getTitle(), notification.getMessage());
+		MessageUtility.addMessage(message);
 		  notification.vibrate();
 		  notification.makeSound();
 		
