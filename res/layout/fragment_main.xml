@@ -12,12 +12,13 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Channel List" />
+        android:text="Message list" />
 
     <ListView
         android:id="@+id/listViewOfChannels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/clearButton"
         android:layout_alignLeft="@+id/textViewTitle"
         android:layout_below="@+id/textViewTitle"
         android:layout_marginTop="21dp" >
@@ -32,5 +33,13 @@
         android:layout_toRightOf="@+id/textViewTitle"
         android:orientation="vertical" >
     </LinearLayout>
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Clear All" />
 
 </RelativeLayout>

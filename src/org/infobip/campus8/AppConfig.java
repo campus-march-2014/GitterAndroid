@@ -13,5 +13,6 @@ public class AppConfig {
 	public static final String STORED_MESSAGES_NUMBER = "numberOfMessages";
 	public static final String STORED_MESSAGE_TITLE_KEY = "title";
 	public static final String STORED_MESSAGE_TEXT_KEY = "text";
+	public static final String STORED_MESSAGE_ID = "id";
 	//
 }

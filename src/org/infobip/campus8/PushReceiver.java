@@ -26,10 +26,13 @@ public class PushReceiver extends AbstractPushReceiver {
 		context.getApplicationContext();
 		Log.e("on notification received", "1");
 		Toast.makeText(context, "Received notification: " + notification.toString(), Toast.LENGTH_SHORT).show();
-		Message message = new Message(notification.getTitle(), notification.getMessage());
+		Message message = new Message(notification.getTitle(), notification.getMessage(), notification.getId());
 		MessageUtility utility = new MessageUtility(context);
-		utility.addMessage(message);
+		if(!utility.exists(notification.getId())){
+			utility.addMessage(message);
+		}
 		Log.e("on notification received", "prosao addMessage");
+		Log.e("on notification received", "notification id " +notification.getId());
 		  notification.vibrate();
 		  notification.makeSound();
 		

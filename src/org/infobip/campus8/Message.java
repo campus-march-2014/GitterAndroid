@@ -2,12 +2,14 @@ package org.infobip.campus8;
 
 public class Message {
 	private String title;
+	private String text;
+	private String id;
 	
-	public Message(String title, String text) {
+	public Message(String title, String text, String id) {
 		this.title = title;
 		this.text = text;
+		this.id = id;
 	}
-	private String text;
 	
 	public String getTitle() {
 		return title;
@@ -21,4 +23,13 @@ public class Message {
 	public void setText(String text) {
 		this.text = text;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 }

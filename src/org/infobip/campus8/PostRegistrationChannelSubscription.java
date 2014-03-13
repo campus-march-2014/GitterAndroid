@@ -71,8 +71,21 @@ public class PostRegistrationChannelSubscription extends Activity {
 			saveSelectedChannelesInPrefs();
 			Toast.makeText(getBaseContext(), "Saved Channel List", Toast.LENGTH_SHORT).show();
 			String channels = getSavedItems();
+			Log.e("from onclick in post registration form", "selected channel list: " + channels);
 			String[] channelArray = channels.split(",");
 			List<String> channelsToBePushed = Arrays.asList(channelArray);
+			manager.registerToChannels(new ArrayList<String>(), true, new ChannelRegistrationListener() {
+
+    		    @Override
+    		    public void onChannelsRegistered() {
+    		    	Toast.makeText(getBaseContext(), "Channels successfully removed", Toast.LENGTH_SHORT).show();
+    		    }
+
+    		    @Override
+    		    public void onChannelRegistrationFailed(int reason) {
+    		    	Toast.makeText(getBaseContext(), "Channel registration failed " +reason, Toast.LENGTH_SHORT).show();
+    		    }
+    		});
 			manager.setDebugModeEnabled(true);
    		 	manager.initialize(AppConfig.PROJECT_NUMBER, AppConfig.APPLICATION_ID, AppConfig.APPLICATION_SECRET);
    		 	manager.registerToChannels(channelsToBePushed, true, new ChannelRegistrationListener() {
