@@ -25,24 +25,29 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int RegisterButton=0x7f080004;
-        public static final int action_settings=0x7f080008;
-        public static final int buttonToMain=0x7f080007;
-        public static final int editText1=0x7f080002;
-        public static final int editText2=0x7f080003;
-        public static final int listViewOfChannels=0x7f080001;
-        public static final int saveButton=0x7f080006;
-        public static final int textViewMessage=0x7f080005;
-        public static final int textViewTitle=0x7f080000;
+        public static final int RegisterButton=0x7f080008;
+        public static final int action_settings=0x7f08000c;
+        public static final int buttonToMain=0x7f08000b;
+        public static final int editText1=0x7f080006;
+        public static final int editText2=0x7f080007;
+        public static final int listViewOfChannels=0x7f080005;
+        public static final int saveButton=0x7f08000a;
+        public static final int textView1=0x7f080000;
+        public static final int textView2=0x7f080001;
+        public static final int textView3=0x7f080002;
+        public static final int textView4=0x7f080003;
+        public static final int textViewMessage=0x7f080009;
+        public static final int textViewTitle=0x7f080004;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f090000;
     }
     public static final class layout {
-        public static final int fragment_main=0x7f030000;
-        public static final int registration_screen=0x7f030001;
-        public static final int subscription_layout=0x7f030002;
-        public static final int view_message=0x7f030003;
+        public static final int about=0x7f030000;
+        public static final int fragment_main=0x7f030001;
+        public static final int registration_screen=0x7f030002;
+        public static final int subscription_layout=0x7f030003;
+        public static final int view_message=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f070000;
