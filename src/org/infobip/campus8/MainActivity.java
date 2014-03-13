@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -51,26 +52,28 @@ public class MainActivity extends Activity {
 		 
 	}
 
-
-	
 	@Override
-	 public boolean onCreateOptionsMenu(Menu menu) {
-	  menu.add(0, 1, 0, "Settings");
-	  menu.add(0, 2, 0, "About");
-	  return super.onCreateOptionsMenu(menu);
+	public boolean onCreateOptionsMenu(Menu menu) {
+	menu.add(0, 1, 0, "Settings");
+	menu.add(0, 2, 0, "About");
+	 return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+	 switch (item.getItemId()) {
+	 case 1: {
+	  Intent intentSubsOne = new Intent(MainActivity.this,PostRegistrationChannelSubscription.class);
+	  startActivity(intentSubsOne);
+	  break;
+	 	}
+	 case 2: {
+		   Intent intentSubs = new Intent(MainActivity.this,AboutActivity.class);
+		   startActivity(intentSubs);
+		   break;
+		  	}
 	 }
-
-	 @Override
-	 public boolean onOptionsItemSelected(MenuItem item) {
-
-	  switch (item.getItemId()) {
-	  case 1: {
-	   Log.e("MainMenu", "Selected item");
-	   Intent intentSubs = new Intent(MainActivity.this,PostRegistrationChannelSubscription.class);
-	   startActivity(intentSubs);
-	  	}
-	  }
-	  return super.onOptionsItemSelected(item);
-	 }
-
+	 return true;
+	}
 }

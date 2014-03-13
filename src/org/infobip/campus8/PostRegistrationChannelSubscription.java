@@ -21,6 +21,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -31,33 +33,28 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class PostRegistrationChannelSubscription extends Activity {
+	
 	private PushNotificationManager manager;
 	private String PREFERENCES_FILENAME = "SelectedChannels";
 	private String CHANNEL_LIST_PREFS_FILENAME = "AllChannelsFromServer";
 	private ArrayList<String> selectedItems = new ArrayList<String>();
 	private ListView listViewOfChannels;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.subscription_layout);
 	manager = new PushNotificationManager(this);
 	List<String> channelList=getList();
-	  storeChannelListInSharedPrefs(channelList);
-	  Log.e("load selections", "line 45");
+	storeChannelListInSharedPrefs(channelList);
 	SharedPreferences sharedpreferences=this.getSharedPreferences(CHANNEL_LIST_PREFS_FILENAME, 0);
-	Log.e("load selections", "line 47");
 	String chList=sharedpreferences.getString("Channels",null);
-	Log.e("load selections", "chlist: "+chList);
-
 	String[] ChannelList = chList.split(",");
-	Log.e("load selections", "line 52");
 	listViewOfChannels = (ListView) findViewById(R.id.listViewOfChannels);
 	ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice,ChannelList );
-	Log.e("load selections", "line 54");
 	listViewOfChannels.setAdapter(arrayAdapter); 
 	listViewOfChannels.setItemsCanFocus(false);
 	listViewOfChannels.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-	Log.e("load selections", "line 59");
 	LoadSelections();
 	
 	listViewOfChannels.setOnItemClickListener(new OnItemClickListener() {
@@ -87,7 +84,7 @@ public class PostRegistrationChannelSubscription extends Activity {
 
     		    @Override
     		    public void onChannelRegistrationFailed(int reason) {
-    		    	Toast.makeText(getBaseContext(), "Channel registration failed", Toast.LENGTH_SHORT).show();
+    		    	Toast.makeText(getBaseContext(), "Channel registration failed " +reason, Toast.LENGTH_SHORT).show();
     		    }
     		});
 		}});
@@ -122,8 +119,7 @@ public class PostRegistrationChannelSubscription extends Activity {
 		}
 
 		private void storeChannelListInSharedPrefs(List<String> channelList) {
-			  SharedPreferences sharedpreferences = getSharedPreferences(
-			    CHANNEL_LIST_PREFS_FILENAME, 0);
+			  SharedPreferences sharedpreferences = getSharedPreferences(CHANNEL_LIST_PREFS_FILENAME, 0);
 			  SharedPreferences.Editor editor = sharedpreferences.edit();
 			  StringBuilder sb = new StringBuilder();
 			  for (int i = 0; i < channelList.size(); i++) {
@@ -187,5 +183,28 @@ public class PostRegistrationChannelSubscription extends Activity {
            	   startActivity(intentSubs);
                finish();
      }	*/
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	menu.add(0, 1, 0, "Settings");
+	menu.add(0, 2, 0, "About");
+	 return true;
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+	 switch (item.getItemId()) {
+	 case 1: {
+	  Intent intentSubsOne = new Intent(PostRegistrationChannelSubscription.this,PostRegistrationChannelSubscription.class);
+	  startActivity(intentSubsOne);
+	  break;
+	 	}
+	 case 2: {
+		   Intent intentSubs = new Intent(PostRegistrationChannelSubscription.this,AboutActivity.class);
+		   startActivity(intentSubs);
+		   break;
+		  	}
+	 }
+	 return true;
+	}
 }

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,5 +33,29 @@ public class ViewMessageAcitivity extends Activity{
 				startActivity(main);
 			}
 		});
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	menu.add(0, 1, 0, "Settings");
+	menu.add(0, 2, 0, "About");
+	 return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+	 switch (item.getItemId()) {
+	 case 1: {
+	  Intent intentSubsOne = new Intent(ViewMessageAcitivity.this,PostRegistrationChannelSubscription.class);
+	  startActivity(intentSubsOne);
+	  break;
+	 	}
+	 case 2: {
+		   Intent intentSubs = new Intent(ViewMessageAcitivity.this,AboutActivity.class);
+		   startActivity(intentSubs);
+		   break;
+		  	}
+	 }
+	 return true;
 	}
 }
