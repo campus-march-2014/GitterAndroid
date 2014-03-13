@@ -12,7 +12,7 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Message list" />
+        android:text="Notification list" />
 
     <ListView
         android:id="@+id/listViewOfChannels"
@@ -20,12 +20,12 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/clearButton"
         android:layout_alignLeft="@+id/textViewTitle"
-        android:layout_below="@+id/textViewTitle"
-        android:layout_marginTop="21dp" >
+        android:layout_below="@+id/textViewTitle" >
 
     </ListView>
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textViewTitle"

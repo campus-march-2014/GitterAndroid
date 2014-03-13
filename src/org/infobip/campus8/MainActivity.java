@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.json.JSONException;
 
+import com.infobip.push.ChannelObtainListener;
 import com.infobip.push.PushNotificationManager;
 
 import android.content.Context;
@@ -31,9 +32,7 @@ import android.net.NetworkInfo;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	private ListView listViewOfChannels;
 	private PushNotificationManager manager;
-	private String CHANNEL_LIST_PREFS_FILENAME = "AllChannelsFromServer";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +80,6 @@ public class MainActivity extends Activity {
 		});
 		//===========================================================================
 	    
-	    
 	    final Button clearButton = (Button) findViewById(R.id.clearButton);
 	    clearButton.setOnClickListener(new View.OnClickListener() {
 
@@ -94,7 +92,9 @@ public class MainActivity extends Activity {
 				
 			}}
 	    
-	);}
+	);
+	
+	    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -71,7 +71,6 @@ public class MessageUtility {
 		context.getApplicationContext();
 		SharedPreferences sharedpreferences = context.getSharedPreferences(AppConfig.STORED_MESSAGES_PREFERENCES, 0);
 		sharedpreferences.edit().clear().commit();
-		
 	}
 	
 	

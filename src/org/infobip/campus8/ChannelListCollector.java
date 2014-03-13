@@ -40,10 +40,8 @@ public class ChannelListCollector {
 			try {
 				responseGet = client.execute(get);
 			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}  
 	        HttpEntity resEntityGet = responseGet.getEntity();  
@@ -52,10 +50,8 @@ public class ChannelListCollector {
 	        	try {
 					output = EntityUtils.toString(resEntityGet);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 	        }

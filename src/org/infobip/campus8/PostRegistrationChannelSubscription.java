@@ -9,6 +9,7 @@ import javax.xml.datatype.Duration;
 
 import org.json.JSONException;
 
+import com.infobip.push.ChannelObtainListener;
 import com.infobip.push.ChannelRegistrationListener;
 import com.infobip.push.PushNotificationManager;
 import com.infobip.push.RegistrationData;
@@ -74,18 +75,6 @@ public class PostRegistrationChannelSubscription extends Activity {
 			Log.e("from onclick in post registration form", "selected channel list: " + channels);
 			String[] channelArray = channels.split(",");
 			List<String> channelsToBePushed = Arrays.asList(channelArray);
-			manager.registerToChannels(new ArrayList<String>(), true, new ChannelRegistrationListener() {
-
-    		    @Override
-    		    public void onChannelsRegistered() {
-    		    	Toast.makeText(getBaseContext(), "Channels successfully removed", Toast.LENGTH_SHORT).show();
-    		    }
-
-    		    @Override
-    		    public void onChannelRegistrationFailed(int reason) {
-    		    	Toast.makeText(getBaseContext(), "Channel registration failed " +reason, Toast.LENGTH_SHORT).show();
-    		    }
-    		});
 			manager.setDebugModeEnabled(true);
    		 	manager.initialize(AppConfig.PROJECT_NUMBER, AppConfig.APPLICATION_ID, AppConfig.APPLICATION_SECRET);
    		 	manager.registerToChannels(channelsToBePushed, true, new ChannelRegistrationListener() {
@@ -101,6 +90,33 @@ public class PostRegistrationChannelSubscription extends Activity {
     		    }
     		});
 		}});
+	 
+	    final Button showButton = (Button)findViewById(R.id.showButton);
+	    showButton.setOnClickListener(new View.OnClickListener() {
+	    	
+	    	@Override
+			public void onClick(View v) {
+				manager.getRegisteredChannels(new ChannelObtainListener() {
+					
+					@Override
+					public void onChannelsObtained(String[] channels) {
+						String result = "";
+						for (String channel : channels) {
+				            result += channel+",";
+				        }
+						Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+						
+					}
+					
+					@Override
+					public void onChannelObtainFailed(int reason) {
+						Toast.makeText(getApplicationContext(), "Error obtaining channel list", Toast.LENGTH_LONG).show();
+						
+					}
+				});
+				
+			}
+		});
 			
 	}	
 	
@@ -140,7 +156,6 @@ public class PostRegistrationChannelSubscription extends Activity {
 			  }
 			  editor.putString("Channels", sb.toString());
 			  editor.commit();
-			  Log.e("MainAct", "Storing in shared prefs:" + sb);
 			 }
 	
 	private void saveSelectedChannelesInPrefs() {
@@ -187,15 +202,6 @@ public class PostRegistrationChannelSubscription extends Activity {
 			        }
 			    }
 	
-	
-	//Po potrebi srediti
-/*	 @Override
-     public void onBackPressed() {
-		 Intent intentSubs = new Intent(PostRegistrationChannelSubscription.this,
-           	     MainActivity.class);
-           	   startActivity(intentSubs);
-               finish();
-     }	*/
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	menu.add(0, 1, 0, "Settings");
