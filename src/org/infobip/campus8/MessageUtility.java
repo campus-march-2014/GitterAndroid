@@ -9,7 +9,11 @@ import android.content.SharedPreferences;
 public class MessageUtility {
 	private static Context context;
 	
-	public static List<Message> getStoredMessages() {
+	public MessageUtility(Context context){
+		this.context = context;
+	}
+	
+	public List<Message> getStoredMessages() {
 		context.getApplicationContext();
 		SharedPreferences sharedpreferences = context.getSharedPreferences(AppConfig.STORED_MESSAGES_PREFERENCES, 0);
 		int messageCount = sharedpreferences.getInt(AppConfig.STORED_MESSAGES_NUMBER, 0);
@@ -23,7 +27,7 @@ public class MessageUtility {
 		return messageList;
 	}
 
-	public static void addMessage(Message message) {
+	public void addMessage(Message message) {
 		SharedPreferences sharedpreferences = context.getSharedPreferences(AppConfig.STORED_MESSAGES_PREFERENCES, 0);
 		int messageCount = sharedpreferences.getInt(AppConfig.STORED_MESSAGES_NUMBER, 0);
 		int newMessageCount = messageCount + 1;

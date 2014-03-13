@@ -2,6 +2,7 @@ package org.infobip.campus8;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.infobip.push.AbstractPushReceiver;
@@ -22,9 +23,13 @@ public class PushReceiver extends AbstractPushReceiver {
 
 	@Override
 	public void onNotificationReceived(PushNotification notification, Context context) {
+		context.getApplicationContext();
+		Log.e("on notification received", "1");
 		Toast.makeText(context, "Received notification: " + notification.toString(), Toast.LENGTH_SHORT).show();
 		Message message = new Message(notification.getTitle(), notification.getMessage());
-		MessageUtility.addMessage(message);
+		MessageUtility utility = new MessageUtility(context);
+		utility.addMessage(message);
+		Log.e("on notification received", "prosao addMessage");
 		  notification.vibrate();
 		  notification.makeSound();
 		
@@ -33,9 +38,11 @@ public class PushReceiver extends AbstractPushReceiver {
 	@Override
     protected void onNotificationOpened(PushNotification notification, Context context) {
 		Intent viewMessage = new Intent(context.getApplicationContext(), ViewMessageAcitivity.class);
+		Log.e("on notification opened", "ulaz u metodu");
 		viewMessage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		viewMessage.putExtra("title",notification.getTitle());
 		viewMessage.putExtra("message",notification.getMessage());
+		Log.e("on notification opened", "prije starta metode");
 		context.startActivity(viewMessage);
       
     }
